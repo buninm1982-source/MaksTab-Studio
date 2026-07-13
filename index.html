@@ -1,133 +1,123 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#090a0d">
-  <title>MaksTab Studio</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07080a">
+<title>MaksTab Studio v0.5</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
-  <div id="splash" class="splash">
-    <div class="logo-wrap">
-      <div class="logo-m">M<div class="neck"></div></div>
-      <div class="brand-title">Maks<span>Tab</span><small>STUDIO</small></div>
-      <p>Играй. Учись. Развивайся.</p>
-      <div class="loader"><span></span></div>
+<div id="splash" class="splash">
+  <div class="logo">Maks<span>Tab</span><small>STUDIO</small></div>
+  <p>Играй. Учись. Развивайся.</p>
+  <div class="bar"><i></i></div>
+</div>
+
+<main id="app" class="app hidden">
+  <section id="home" class="home">
+    <div class="hero">
+      <img src="assets/maks-hero.jpg" alt="Maks">
+      <div class="shade"></div>
+      <div class="brand">Maks<span>Tab</span><small>STUDIO</small></div>
+      <button class="maestro top" data-maestro>🎩</button>
+      <div class="copy">
+        <em>Играй. Учись. Развивайся.</em>
+        <h1>Привет, <span>Maks!</span></h1>
+        <p>Сегодня отличный день, чтобы сыграть что-то новое.</p>
+      </div>
+    </div>
+
+    <div class="menu">
+      <button id="start" class="card gold"><b>▶</b><span><strong>Начать урок</strong><small>Реалистичный гриф и полноэкранный режим</small></span><i>›</i></button>
+      <button class="card" data-toast="Библиотеку песен добавим следующей"><b>♫</b><span><strong>Мои песни</strong><small>Сохранённые табы</small></span><i>›</i></button>
+      <button class="card" data-toast="Уроки пока готовятся"><b>🎓</b><span><strong>Уроки и упражнения</strong><small>Техника и ритм</small></span><i>›</i></button>
+      <button class="card" data-toast="Импорт Guitar Pro ещё в разработке"><b>TAB</b><span><strong>Табулатуры</strong><small>Импорт и библиотека</small></span><i>›</i></button>
+      <button class="card" data-toast="Статистика появится после первого урока"><b>▥</b><span><strong>Статистика</strong><small>Твой прогресс</small></span><i>›</i></button>
+    </div>
+  </section>
+
+  <section id="trainer" class="trainer off">
+    <header>
+      <button id="back">‹</button>
+      <div><b>Первый урок</b><small>Коснись экрана — появятся кнопки</small></div>
+      <button data-maestro>🎩</button>
+    </header>
+
+    <div id="stage" class="stage">
+      <div class="wood"></div>
+      <div class="fretmarkers">
+        <i style="left:18%"></i><i style="left:34%"></i><i style="left:50%"></i><i style="left:66%"></i>
+        <i class="double one" style="left:83%"></i><i class="double two" style="left:83%"></i>
+      </div>
+      <div id="strings" class="strings"></div>
+      <div id="frets" class="frets"></div>
+      <div class="playhead"><span>ИГРАЙ</span></div>
+      <div id="notes"></div>
+      <div id="count" class="count"></div>
+
+      <div id="controls" class="overlay">
+        <div class="transport">
+          <button id="restart">↺<small>Сначала</small></button>
+          <button id="rew">«<small>5 сек.</small></button>
+          <button id="play" class="main">▶<small>Старт</small></button>
+          <button id="fwd">»<small>5 сек.</small></button>
+          <button id="loop">⟳<small>Повтор</small></button>
+        </div>
+        <div class="speeds">
+          <button data-speed=".25">0.25×</button>
+          <button data-speed=".5">0.5×</button>
+          <button data-speed=".75" class="active">0.75×</button>
+          <button data-speed="1">1×</button>
+        </div>
+        <input id="progress" type="range" min="0" max="100" value="0">
+      </div>
+    </div>
+
+    <div class="tools">
+      <button id="cameraBtn">📷 AR-подсказки</button>
+      <button id="finishBtn">★ Завершить урок</button>
+    </div>
+  </section>
+
+  <section id="result" class="result off">
+    <div class="result-card">
+      <div class="stars">★★★★☆</div>
+      <h2>Результат урока</h2>
+      <dl>
+        <div><dt>Точность</dt><dd id="accuracy">91%</dd></div>
+        <div><dt>Ошибок</dt><dd id="errors">4</dd></div>
+        <div><dt>Лучшее комбо</dt><dd>18 нот</dd></div>
+        <div><dt>Средняя скорость</dt><dd id="avgSpeed">73 BPM</dd></div>
+      </dl>
+      <p>🎩 Красиво! Ты попал в ритм. Продолжай в том же духе.</p>
+      <button id="again" class="gold-btn">Ещё раз</button>
+      <button id="homeBtn">На главную</button>
+    </div>
+  </section>
+
+  <div id="cameraModal" class="modal off">
+    <div class="camera-card">
+      <button id="cameraClose">×</button>
+      <video id="camera" autoplay playsinline muted></video>
+      <div class="camera-hint">
+        <b>Демо AR-подсказки</b>
+        <p>Наведи камеру на гриф. В этой версии показывается пример подсказки; распознавание пальцев ещё не подключено.</p>
+        <div class="fingers"><span>1</span> → <span>2</span> → <span>3</span></div>
+      </div>
     </div>
   </div>
 
-  <main id="app" class="app hidden">
-    <section id="homeScreen">
-      <section class="hero">
-        <img src="maks-photo.jpg" alt="Maks">
-        <div class="hero-overlay"></div>
-
-        <header class="topbar">
-          <div class="mini-brand">
-            <b>Maks<span>Tab</span></b>
-            <small>STUDIO</small>
-          </div>
-          <button id="openMaestro" class="round-btn" aria-label="Маэстро">🎩</button>
-        </header>
-
-        <div class="hero-copy">
-          <div class="tagline">Играй. Учись. Развивайся.</div>
-          <h1>Привет, <span>Maks!</span></h1>
-          <p>Сегодня отличный день, чтобы сыграть что-то новое.</p>
-        </div>
-      </section>
-
-      <section class="menu">
-        <button id="startLesson" class="menu-card primary">
-          <span class="menu-icon">▶</span>
-          <span class="menu-copy">
-            <b>Начать урок</b>
-            <small>Тренажёр уже работает</small>
-          </span>
-          <span class="arrow">›</span>
-        </button>
-
-        <button class="menu-card" data-toast="Раздел «Мои песни» появится в следующей версии">
-          <span class="menu-icon">♫</span>
-          <span class="menu-copy"><b>Мои песни</b><small>Сохранённые табы</small></span>
-          <span class="arrow">›</span>
-        </button>
-
-        <button class="menu-card" data-toast="Уроки и упражнения скоро добавим">
-          <span class="menu-icon">🎓</span>
-          <span class="menu-copy"><b>Уроки и упражнения</b><small>Техника и ритм</small></span>
-          <span class="arrow">›</span>
-        </button>
-
-        <button class="menu-card" data-toast="Импорт табулатур будет в следующей версии">
-          <span class="menu-icon tab-icon">TAB</span>
-          <span class="menu-copy"><b>Табулатуры</b><small>Импорт и библиотека</small></span>
-          <span class="arrow">›</span>
-        </button>
-
-        <button class="menu-card" data-toast="Избранное пока пустое. Даже Маэстро грустит">
-          <span class="menu-icon">★</span>
-          <span class="menu-copy"><b>Избранное</b><small>Любимые песни и уроки</small></span>
-          <span class="arrow">›</span>
-        </button>
-      </section>
-    </section>
-
-    <section id="trainerScreen" class="trainer hidden-screen">
-      <header class="trainer-header">
-        <button id="backHome" class="round-btn">‹</button>
-        <div>
-          <b>Первый урок</b>
-          <small>Играй по красной линии</small>
-        </div>
-        <button id="trainerMaestro" class="round-btn">🎩</button>
-      </header>
-
-      <div class="lesson-panel">
-        <div class="lesson-name">Упражнение: первая струна</div>
-        <div id="countdown" class="countdown"></div>
-
-        <div id="tabStage" class="tab-stage">
-          <div class="string-labels">
-            <span>e</span><span>B</span><span>G</span><span>D</span><span>A</span><span>E</span>
-          </div>
-          <div id="strings" class="strings"></div>
-          <div class="playhead"><small>ИГРАЙ</small></div>
-        </div>
-
-        <div id="status" class="status">
-          Маэстро ждёт. Гитара делает вид, что спокойна.
-        </div>
-      </div>
-
-      <div class="transport">
-        <button id="playBtn" class="gold-btn">▶ Старт</button>
-        <button id="pauseBtn">⏸ Пауза</button>
-        <button id="restartBtn">↺ Сначала</button>
-      </div>
-
-      <label class="range-row">
-        <span>Темп</span>
-        <input id="tempo" type="range" min="45" max="120" value="70">
-        <b id="tempoValue">70 BPM</b>
-      </label>
-    </section>
-
-    <div id="maestroModal" class="modal hidden-screen">
-      <div class="modal-card">
-        <button id="closeMaestro" class="close-btn">×</button>
-        <div class="maestro-emoji">🎩</div>
-        <h2>Маэстро</h2>
-        <p id="maestroText"></p>
-        <button id="nextMaestro" class="gold-btn">Ещё реплика</button>
-      </div>
+  <div id="maestroModal" class="modal off">
+    <div class="dialog">
+      <button id="maestroClose">×</button>
+      <div>🎩</div><h2>Маэстро</h2><p id="maestroText"></p>
+      <button id="maestroNext" class="gold-btn">Ещё</button>
     </div>
-
-    <div id="toast" class="toast"></div>
-  </main>
-
-  <script src="app.js"></script>
+  </div>
+  <div id="toast" class="toast"></div>
+</main>
+<script src="app.js"></script>
 </body>
 </html>
