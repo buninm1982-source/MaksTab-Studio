@@ -1,0 +1,1 @@
+console.log('MaksTab Studio v0.1');
