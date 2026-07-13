@@ -1,1 +1,15 @@
-{"name":"MaksTab Studio","short_name":"MaksTab","display":"standalone","start_url":"./"}
+{
+  "name": "MaksTab Studio",
+  "short_name": "MaksTab",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090a0d",
+  "theme_color": "#090a0d",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
